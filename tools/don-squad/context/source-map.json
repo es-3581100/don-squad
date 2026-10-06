@@ -1,0 +1,180 @@
+{
+  "schema": "don-squad.source-map.v2",
+  "runtime_agent_count": 15,
+  "primary_count": 1,
+  "subagent_count": 14,
+  "duplicate_source_handling": {
+    "sha256": "cf19083010432bc65885c6a4b5778a2706322be35ca4844ae466701a7f6cd1ae",
+    "uploads": [
+      "planner-verifier-agentbundle-v1 (1).zip",
+      "planner-verifier-agentbundle-v1(1).zip"
+    ],
+    "derived_agents": [
+      "planner",
+      "verifier"
+    ],
+    "note": "Byte-identical source artifacts intentionally narrowed into distinct planning and verification roles to honor the 15-artifact/15-agent target without pretending the sources differ."
+  },
+  "agents": [
+    {
+      "agent_id": "don-squad",
+      "source_zip": "orchestrator-agentbundle-v1(1).zip",
+      "source_zip_sha256": "17418e5cb736c3927b8e475a2be822d2b0ed8ecbecc975313d66193b4aa54a83",
+      "primary_path": "orchestrator-agentbundle-v1/bundle/agent/.opencode/agents/orchestrator.md",
+      "primary_source_sha256": "5137cc4cb7caf76e36fc890906842d7b5dfa37b9b8eaacedfbcc40127fa4d31b",
+      "source_primary_description": "Control-plane team lead for routing planning, implementation, verification, hygiene, design, and deployment across the generalized agent family. Owns workflow state, never specialist work.",
+      "artifact_role": "lead",
+      "internal_reference_agents": ["orchestrator.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "ui-designer",
+      "source_zip": "ui-designer-agentbundle-v1(1).zip",
+      "source_zip_sha256": "4bc7daa8703f7578ef7789f7ade983b222a9496dceec122e2b16bb9ab56abb58",
+      "primary_path": "ui-designer-agentbundle-v1/bundle/agent/.opencode/agents/ui-designer.md",
+      "primary_source_sha256": "e5338bf1263622051b9184c07701d291302cdcb9436e1feb8e3845dc3d95def4",
+      "source_primary_description": "Creative design authority. Produces distinctive design systems, plans and handoff artifacts without implementing application code.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["design-documenter.md","design-scout.md","design-system-architect.md","interaction-motion-reviewer.md","red-team-auditor.md","responsive-a11y-reviewer.md","ui-designer.md","visual-validation-runner.md"]
+    },
+    {
+      "agent_id": "crossplatform-deployment",
+      "source_zip": "crossplatform-deployment-agentbundle-v1(1).zip",
+      "source_zip_sha256": "d345fa0f88edc45752bbc6ca732dbbd6143a0e1c4debe0fc0058ecac9606cd04",
+      "primary_path": "crossplatform-deployment-agentbundle-v1/bundle/agent/.opencode/agents/crossplatform-deployment-agent.md",
+      "primary_source_sha256": "167b2498e15590b09c8564d66757996e4d06fc3f64ee18c92dae43a16bf347fa",
+      "source_primary_description": "Cross-platform desktop/mobile deployment lead for Linux, Windows, macOS, FreeBSD/birdOS, Android/GrapheneOS, CI/CD, packaging, signing, E2E, and release verification. Never implements application features.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["android-grapheneos-deployment-agent.md","apple-deployment-agent.md","bsd-birdos-deployment-agent.md","crossplatform-deployment-agent.md","crossplatform-e2e-runner.md","crossplatform-release-ops.md","linux-deployment-agent.md","red-team-auditor.md","windows-deployment-agent.md"]
+    },
+    {
+      "agent_id": "mobile-deployment",
+      "source_zip": "mobile-deployment-agentbundle-v1(1).zip",
+      "source_zip_sha256": "0f23ab290d13d155dcab2f7189c2527a7d8dc5d6d823096160089911aaa02d08",
+      "primary_path": "mobile-deployment-agentbundle-v1/bundle/agent/.opencode/agents/mobile-deployment-agent.md",
+      "primary_source_sha256": "dceaf31814ea7976baf490892c1e215736ff310a1d561662b1cfb83588d1583c",
+      "source_primary_description": "Cross-platform mobile deployment and E2E lead. Plans and routes Android, Apple, Linux-mobile, device-farm, and release operations without implementing application code.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["android-mobile-deployment-agent.md","apple-mobile-deployment-agent.md","device-farm-runner.md","linux-mobile-deployment-agent.md","mobile-deployment-agent.md","mobile-e2e-runner.md","mobile-release-ops.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "project-planner-hygiene",
+      "source_zip": "project-planner-hygiene-agentbundle-v1(1).zip",
+      "source_zip_sha256": "cc1aef0f61003373ce0a1b355dc8ba9cab908ebacc27b35e4ace71eaa1ef42b2",
+      "primary_path": "project-planner-hygiene-agentbundle-v1/bundle/agent/.opencode/agents/project-planner-hygiene.md",
+      "primary_source_sha256": "a7781a5fb2f52081478931d15bfcd88c5cf121c849d99eb74b115921ad3990c5",
+      "source_primary_description": "Project planner and hygiene lead for lean wave planning, bounded code cleanup, docs/provenance/history/legal/GTM preparation, and release-ready Git handoff without implementing product features.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["hygiene-worker.md","legal-gtm-scout.md","plan-verifier.md","project-planner-hygiene.md","project-scout.md","provenance-historian.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "planner",
+      "source_zip": "planner-verifier-agentbundle-v1 (1).zip",
+      "source_zip_sha256": "cf19083010432bc65885c6a4b5778a2706322be35ca4844ae466701a7f6cd1ae",
+      "primary_path": "planner-verifier-agentbundle-v1/bundle/agent/.opencode/agents/planner-verifier.md",
+      "primary_source_sha256": "d214240eb909ea9163653cde0d8fa82ff28ec73819434a768fba650e86e84674",
+      "source_primary_description": "Balanced general-purpose read-only planner and verifier for implementation planning, change verification, release-readiness review, and evidence-bound handoff.",
+      "artifact_role": "planner",
+      "internal_reference_agents": ["evidence-verifier.md","plan-critic.md","plan-scout.md","planner-verifier.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "verifier",
+      "source_zip": "planner-verifier-agentbundle-v1(1).zip",
+      "source_zip_sha256": "cf19083010432bc65885c6a4b5778a2706322be35ca4844ae466701a7f6cd1ae",
+      "primary_path": "planner-verifier-agentbundle-v1/bundle/agent/.opencode/agents/planner-verifier.md",
+      "primary_source_sha256": "d214240eb909ea9163653cde0d8fa82ff28ec73819434a768fba650e86e84674",
+      "source_primary_description": "Balanced general-purpose read-only planner and verifier for implementation planning, change verification, release-readiness review, and evidence-bound handoff.",
+      "artifact_role": "verifier",
+      "internal_reference_agents": ["evidence-verifier.md","plan-critic.md","plan-scout.md","planner-verifier.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "researcher-reviewer",
+      "source_zip": "researcher-reviewer-agentbundle-v1(1).zip",
+      "source_zip_sha256": "1eb78b60167916acab90d5bd25d2b7fc699f41d410512a34d79d6ed3f431fb68",
+      "primary_path": "researcher-reviewer-agentbundle-v1/bundle/agent/.opencode/agents/researcher-reviewer.md",
+      "primary_source_sha256": "e4eec987b44c4bfac7250c39d8d1bd2196aa24c18e639cb3f8ff95465cd449d2",
+      "source_primary_description": "Balanced general-purpose read-only researcher and reviewer for evidence gathering, architecture analysis, claim checking, and bounded adversarial review.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["evidence-scout.md","red-team-auditor.md","researcher-reviewer.md","systems-reviewer.md","test-critic.md"]
+    },
+    {
+      "agent_id": "coder-worker",
+      "source_zip": "coder-worker-agentbundle-v1(1).zip",
+      "source_zip_sha256": "03ba7f85bed4d2be8aa7a7affd3c749a07635edb72f221f1dff804728bb596d9",
+      "primary_path": "coder-worker-agentbundle-v1/bundle/agent/.opencode/agents/coder-worker.md",
+      "primary_source_sha256": "dc38bf73bcaba80cbf808cdd26e8979eabd5021662240e60fd9d9551ef89a0ff",
+      "source_primary_description": "Balanced general-purpose implementation worker with bounded autonomy, recovery discipline, and evidence-backed verification.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["coder-reviewer.md","coder-scout.md","coder-tester.md","coder-worker.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "kolmafia-polyglot",
+      "source_zip": "kolmafia-polyglot-agentbundle-v1(1).zip",
+      "source_zip_sha256": "b5f72e85151e96a6a84606f6a0ab90fbe258eb276a015e9b8da1b0e2e012a83a",
+      "primary_path": "kolmafia-polyglot-agentbundle-v1/bundle/agent/.opencode/agents/kolmafia-human-loop.md",
+      "primary_source_sha256": "d2ae3123779f0a544739bd973bed764bd03639d8f57e19422268d5b9ad907abb",
+      "source_primary_description": "Human-authority KoLmafia polyglot orchestrator for ASH/JVM/TS/JS/Kotlin/Go work.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["ash-coder.md","go-coder.md","java-jre-coder.md","kolmafia-human-loop.md","kolmafia-reviewer.md","kolmafia-scout.md","kolmafia-tester.md","kotlin-coder.md","red-team-auditor.md","ts-js-coder.md"]
+    },
+    {
+      "agent_id": "kotlin-family",
+      "source_zip": "kotlin-family-agentbundle-v1(1).zip",
+      "source_zip_sha256": "4557b42f3e90c9ff6af3e367ef020467c0db38e47a43e40ec39114d3b5c2f325",
+      "primary_path": "kotlin-family-agentbundle-v1/bundle/agent/.opencode/agents/kotlin-human-loop.md",
+      "primary_source_sha256": "0bc569bababf99aec7ab6c3517dcf894679639ad9d383ff21c0e3b2335da0995",
+      "source_primary_description": "Human-authority Kotlin-family orchestrator for inspect→plan→build→verify workflows.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["kotlin-coder.md","kotlin-human-loop.md","kotlin-jvm-coder.md","kotlin-reviewer.md","kotlin-scout.md","kotlin-tester.md","kotlinllm-plugin-coder.md","openrndr-coder.md","orml-coder.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "rust",
+      "source_zip": "rust-human-loop-agentbundle-v1(1).zip",
+      "source_zip_sha256": "84e86310747a5063d0425d8b845214fd5d464983986e562274e6601a9c9b784c",
+      "primary_path": "rust-human-loop-agentbundle-v1/bundle/agent/.opencode/agents/rust-human-loop.md",
+      "primary_source_sha256": "80da0f6e2f93684ad51cdd7cf6fa546cce68e31003cd9c9b8804a748c427826f",
+      "source_primary_description": "Human-authority Rust/Cargo orchestrator for inspect→plan→build→verify workflows.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["android-rust-coder.md","red-team-auditor.md","rust-coder.md","rust-human-loop.md","rust-reviewer.md","rust-scout.md","rust-tester.md"]
+    },
+    {
+      "agent_id": "go",
+      "source_zip": "go-human-loop-agentbundle-v1(1).zip",
+      "source_zip_sha256": "60927cbaeabb7f38dae80888c395291e0a1df5ceeecb017e7c94964d01d31f06",
+      "primary_path": "bundle/agent/.opencode/agents/go-human-loop.md",
+      "primary_source_sha256": "7ffe22cb8c516baa3225a866ebecbd10076ed5b7f682954d3cc962bdaa688687",
+      "source_primary_description": "Human-authority Go orchestrator for inspect→plan→build→verify workflows.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["go-coder.md","go-human-loop.md","go-reviewer.md","go-scout.md","go-tester.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "python",
+      "source_zip": "python-human-loop-agentbundle-v1(1).zip",
+      "source_zip_sha256": "d571349b34e186f235ccf2a3535f216ea2efc0362c3277635e81e61a68b07d82",
+      "primary_path": "bundle/agent/.opencode/agents/python-human-loop.md",
+      "primary_source_sha256": "5e73454e3323184e081be3575301865f0525310a50c29e895b6f55d60b2fffa7",
+      "source_primary_description": "Human-authority Python orchestrator for inspect→plan→build→verify workflows.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["python-coder.md","python-human-loop.md","python-reviewer.md","python-scout.md","python-tester.md","red-team-auditor.md"]
+    },
+    {
+      "agent_id": "c-family",
+      "source_zip": "c-family-multiruntime-agentbundle-v1(1).zip",
+      "source_zip_sha256": "b266fdfbb10a6a569b815db22cc9c7a6c228f7970282ee281206c3c903e9b95e",
+      "primary_path": "bundle/agent/.opencode/agents/cfamily-human-loop.md",
+      "primary_source_sha256": "9a0b59865af342e09df3139ad0a3dcabcf8aa73f424e724d946683de80126dd3",
+      "source_primary_description": "Human-authority orchestrator for C, C++, C#, Java, Objective-C, and ASH inspect→plan→build→verify workflows.",
+      "artifact_role": "specialist",
+      "internal_reference_agents": ["ash-coder.md","c-coder.md","cfamily-human-loop.md","cfamily-reviewer.md","cfamily-scout.md","cfamily-tester.md","cpp-coder.md","csharp-coder.md","java-coder.md","objc-coder.md","red-team-auditor.md"]
+    }
+  ],
+  "references": {
+    "revise_workflow_capsule": {
+      "file": "reference/revise-agent-bundle-workflow-capsule.html",
+      "sha256": "75d1f83e04b0b6666c5af4f4a4445dd84ac5b4c846a62bd896f7eeaa247e618f"
+    },
+    "gem_team_main": {
+      "file": "reference/gem-team-pattern.md",
+      "sha256": "677e89b3f95781531d34efdb805c44f6751d91e423710f6e18b2afedaad902c4"
+    }
+  }
+}
