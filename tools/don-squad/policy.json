@@ -1,0 +1,101 @@
+{
+  "schema_version": "don-squad.guard.v1",
+  "lead": "don-squad",
+  "agents": [
+    "c-family",
+    "coder-worker",
+    "crossplatform-deployment",
+    "don-squad",
+    "go",
+    "kolmafia-polyglot",
+    "kotlin-family",
+    "mobile-deployment",
+    "planner",
+    "project-planner-hygiene",
+    "python",
+    "researcher-reviewer",
+    "rust",
+    "ui-designer",
+    "verifier"
+  ],
+  "children": [
+    "c-family",
+    "coder-worker",
+    "crossplatform-deployment",
+    "go",
+    "kolmafia-polyglot",
+    "kotlin-family",
+    "mobile-deployment",
+    "planner",
+    "project-planner-hygiene",
+    "python",
+    "researcher-reviewer",
+    "rust",
+    "ui-designer",
+    "verifier"
+  ],
+  "read_only_agents": [
+    "planner",
+    "verifier",
+    "researcher-reviewer"
+  ],
+  "authority": {
+    "don-squad": "orchestration",
+    "planner": "read-only-planning",
+    "verifier": "read-only-verification",
+    "researcher-reviewer": "read-only-review",
+    "ui-designer": "design-docs",
+    "project-planner-hygiene": "docs-hygiene",
+    "mobile-deployment": "operations",
+    "crossplatform-deployment": "operations",
+    "coder-worker": "implementation",
+    "kolmafia-polyglot": "implementation",
+    "kotlin-family": "implementation",
+    "rust": "implementation",
+    "go": "implementation",
+    "python": "implementation",
+    "c-family": "implementation"
+  },
+  "depth": {
+    "standard_max": 3,
+    "extended_max": 5,
+    "read_only_increment": 0,
+    "normal_increment": 1,
+    "extended_model_patterns": [
+      "gpt-5.6-sol",
+      "gpt-5.6-pro",
+      "gpt-5.7",
+      "gpt-6"
+    ],
+    "note": "Current squad remains lead-routed; this guard also constrains any future/temporary nested subagent permission."
+  },
+  "critical_guard": {
+    "safe_actions": [
+      "read",
+      "glob",
+      "grep",
+      "webfetch",
+      "websearch",
+      "skill",
+      "question"
+    ],
+    "blocked_actions": [
+      "edit",
+      "shell",
+      "subagent",
+      "external_directory",
+      "execute"
+    ],
+    "override_ttl_hours": 12,
+    "confirmation_phrases": [
+      "i am sure",
+      "im am sure",
+      "confirmed"
+    ]
+  },
+  "severity": {
+    "minor": "log only",
+    "medium": "log + terminal/TUI warning",
+    "critical": "read-only full-stop until session override"
+  }
+}
