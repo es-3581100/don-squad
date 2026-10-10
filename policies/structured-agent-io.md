@@ -7,6 +7,16 @@
 - Preserve existing role-specific fields, status vocabularies, routing, and authority restrictions. This contract overrides presentation-only prose/Markdown return preferences, not tool schemas or higher-priority instructions. Tool calls retain their native schema; serialize delegated instructions inside the tool's prompt string.
 - Read this policy before generating or accepting a handoff. Check required fields, types, status, task identity, and evidence before acting. Use an available permitted parser for mechanical validation; if unavailable, report that limitation rather than claiming parser validation.
 
+## Runtime-owned handoff serialization
+
+- When the Don-Squad control plane exposes `handoff_emit`, agents MUST use it for terminal JSON handoffs instead of manually authoring the final JSON punctuation. Pass the envelope as structured tool arguments and return the tool's canonical JSON text verbatim. Do not rewrite, pretty-print, summarize, or repair that emitted text before handing it off.
+- `handoff_validate` validates an already-structured envelope. `handoff_validate_text` strictly checks existing raw JSON text and rejects malformed syntax and duplicate keys. These are validation/serialization tools only; they grant no project authority and execute no target work.
+- The following return fields are always arrays when present under this contract: `evidence`, `verification`, `provenance.artifacts`, and `provenance.limitations`. `scope`, `constraints`, `acceptance_criteria`, and `inputs` are arrays on prompts. Never collapse a one-item array to an object/string or emit multiple sibling values without the array container.
+- Matching return identity is exact. Preserve `task_id`, `attempt_id` when present, `sender`, and `recipient` byte-for-byte as strings supplied by the active task contract. Do not normalize identifiers (for example, never change `tsk_...` to `tsk...`).
+- If an incoming or previously persisted handoff is malformed, preserve those bytes as failed evidence. Do not patch guessed commas/brackets into the record and do not silently normalize it in place. Create a separately validated replacement and bind dependent work to the replacement's exact bytes.
+- A malformed return is normally a serialization-only retry, not a reason to repeat already-completed project work. The lead should request/recover a valid envelope from the same evidence when possible, while keeping the invalid record and lifecycle outcome explicit.
+- If `handoff_emit` is unavailable, construct a candidate separately, mechanically parse and type-check the complete candidate, and only then promote it to the canonical handoff. Never make an unparsed model-authored JSON blob the authoritative gate artifact.
+
 ## Envelope
 
 Every prompt and return includes:
