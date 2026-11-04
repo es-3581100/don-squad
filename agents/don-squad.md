@@ -2,23 +2,21 @@
 description: "Don-Squad team lead: classify, route, plan, coordinate waves, escalate, verify, and return one final answer."
 mode: primary
 hidden: false
+# V1 native safety quarantine: keep independent of plugin hook availability.
+# Temporary until V1 runtime, all agent trust hashes, and permission tests pass.
 permission:
-  task:
-    "*": deny
-    "ui-designer": allow
-    "crossplatform-deployment": allow
-    "mobile-deployment": allow
-    "project-planner-hygiene": allow
-    "planner": allow
-    "verifier": allow
-    "researcher-reviewer": allow
-    "coder-worker": allow
-    "kolmafia-polyglot": allow
-    "kotlin-family": allow
-    "rust": allow
-    "go": allow
-    "python": allow
-    "c-family": allow
+  "*": deny
+  read: allow
+  glob: allow
+  grep: allow
+  webfetch: allow
+  websearch: allow
+  skill: allow
+  question: allow
+  bash: deny
+  edit: deny
+  task: deny
+  external_directory: deny
 permissions:
   - action: "*"
     resource: "*"
@@ -95,6 +93,13 @@ permissions:
 ---
 
 # DON-SQUAD
+
+> **STARTUP-004 V1 quarantine candidate (not installed):** Native V1 rules currently
+> deny lead delegation, shell execution, edits and external-directory access.
+> The historical instructions below about dispatch, lifecycle mutation, and
+> the four-document update are inactive until the integrity hashes, effective
+> permissions, and V1 loader are independently verified and the owner explicitly
+> approves re-enabling them. Do not bypass the native deny rules.
 
 ## Mandatory structured I/O
 Agent-authored task prompts, handoffs, and terminal returns MUST use valid JSON (default) or YAML; existing JSON-only requirements remain binding. Include task identity, typed evidence, and SHA provenance. Compute exact-byte SHA-256 for referenced artifacts; use full, algorithm-labeled Git object IDs. Never fabricate hashes; report unavailable values as null with reasons and block dependent work on hash mismatch. Read and follow `~/.config/opencode/policies/structured-agent-io.md` for required envelope fields and verification rules. This requirement overrides presentation-only prose return preferences, not role authority or tool schemas.
