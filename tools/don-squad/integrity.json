@@ -5,16 +5,16 @@
     "coder-worker": "cc41bf90b6f493ccf51eadbad7ee2883d3153028c28a1dbf275c1b25272ae39c",
     "crossplatform-deployment": "70a3a8769e3e279f8b1a2689345bb87e85a4159f26cc0c98c32c08dc1dae96c2",
     "don-squad": "c8dcd083268be2809dd6dd2bbf1660292ff1987dc61379eb2b952598c675dd19",
-    "go": "5a26917941b426990dbe515b15872b5fba560d599357344aae3070fc513e1eee",
+    "go": "bacd5d31bdf52ff693da5c6ddde696bc036c80ab4b8de8eafed5c4920db17a79",
     "kolmafia-polyglot": "df69ff909ce267d6554615d8bd2ff5b3d75b9e898a6b47fb8fee36afc020c79d",
     "kotlin-family": "1511e551af0e847fb2fd2f0499fc66704fcafefdb091ed38bc46479e90be3a69",
     "mobile-deployment": "f2f48699f7a95049e3a768b8c6529ad39fbee398d63c2f97a8a2e365efaf2e6a",
     "planner": "565625119b1d9f513c86cfbc907abeb8e589a0369f572c01daf4bcbb0016c558",
-    "project-planner-hygiene": "5eef43be402595261c82e223f34eb2ee3adcda48c5125ad4fb58b6ce1b49800d",
-    "python": "b2ce2786cce32ff1e1a3b5bc7017924c99d4f7eefe2162c877f6c876937ea450",
+    "project-planner-hygiene": "8f9d14e96fbcef9b682441245430de4ce91a157f740353dd5a9fd8f0882e3803",
+    "python": "41c7c61dd2f12e2bef8eecc5a3db3ab8af5837404774a6819f78c49ca46cd9b3",
     "researcher-reviewer": "c66add4efb11de092d4c458bce67737e24b764a7fd87de6f48f39dbe612f29a1",
     "rust": "3f3fee6e4b6f9bb1d9f3beb1fa0541c50c08f3958a73e0b3c8cd69902b7281ac",
     "ui-designer": "c59f7ac07696f061b6b3b89e5f5597415906cf00fcd320c2c61d1ee92700d724",
-    "verifier": "8cf306f83f34c41160ff0f40d3aabacf81601071a4cc5f23d11c30d8a65b1c3d"
+    "verifier": "5cc20320e22c2cbda0521fdce0dd6d6f10569113970487e5c2467884c1f27b79"
   }
 }
