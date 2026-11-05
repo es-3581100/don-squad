@@ -3,7 +3,7 @@
 // Intended location in pinned repo: packages/opencode/test/donsquad-startup029/
 // No model, tool, network, user files, permission approval UI, or Git calls.
 import { describe, expect, test } from "bun:test"
-import { Effect, Exit, Fiber, Layer } from "effect"
+import { Effect, Exit, Fiber, Layer, Scope } from "effect"
 import { Permission } from "@/permission"
 import { EventV2Bridge } from "@/event-v2-bridge"
 import { InstanceRef } from "@/effect/instance-ref"
@@ -81,7 +81,8 @@ describe("STARTUP-029 Gate B: real V1 Effect Permission.Service", () => {
     await withProduction(Effect.gen(function* () {
       const service = yield* Permission.Service
       // Start with ASK, let the service create a real pending entry / Deferred.
-      const first = yield* Effect.fork(service.ask(request("read",askRules("read"),sessionA)))
+      const scope = yield* Scope.Scope
+      const first = yield* service.ask(request("read",askRules("read"),sessionA)).pipe(Effect.forkIn(scope))
       const pending = yield* waitForPending(service)
       yield* service.reply({requestID:pending.id, reply:"always"} as any)
       const approved = yield* Fiber.await(first)
@@ -100,7 +101,8 @@ describe("STARTUP-029 Gate B: real V1 Effect Permission.Service", () => {
   test("once approval does NOT persist and hard deny still blocks", async () => {
     await withProduction(Effect.gen(function* () {
       const service = yield* Permission.Service
-      const fiber = yield* Effect.fork(service.ask(request("edit",askRules("edit"))))
+      const scope = yield* Scope.Scope
+      const fiber = yield* service.ask(request("edit",askRules("edit"))).pipe(Effect.forkIn(scope))
       const pending = yield* waitForPending(service)
       yield* service.reply({requestID:pending.id, reply:"once"} as any)
       const initial = yield* Fiber.await(fiber)
