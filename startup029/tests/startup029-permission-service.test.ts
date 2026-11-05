@@ -3,7 +3,7 @@
 // Intended location in pinned repo: packages/opencode/test/donsquad-startup029/
 // No model, tool, network, user files, permission approval UI, or Git calls.
 import { describe, expect, test } from "bun:test"
-import { Cause, Effect, Either, Exit, Fiber, Layer } from "effect"
+import { Effect, Exit, Fiber, Layer } from "effect"
 import { Permission } from "@/permission"
 import { EventV2Bridge } from "@/event-v2-bridge"
 import { InstanceRef } from "@/effect/instance-ref"
@@ -67,12 +67,12 @@ describe("STARTUP-029 Gate B: real V1 Effect Permission.Service", () => {
     await withProduction(Effect.gen(function* () {
       const service = yield* Permission.Service
       for (const name of ["read","bash","edit","task","webfetch","websearch","skill","external_directory"]) {
-        const outcome = yield* service.ask(request(name,deny(name))).pipe(Effect.either)
-        expect(Either.isLeft(outcome)).toBe(true)
-        if (Either.isLeft(outcome)) expect((outcome.left as any)._tag).toBe("PermissionDeniedError")
+        const outcome = yield* service.ask(request(name,deny(name))).pipe(Effect.exit)
+        expect(Exit.isFailure(outcome)).toBe(true)
+        if (Exit.isFailure(outcome)) expect(String(outcome.cause)).toContain("PermissionDeniedError")
       }
-      const allowed = yield* service.ask(request("question",[rule("question","allow")])).pipe(Effect.either)
-      expect(Either.isRight(allowed)).toBe(true)
+      const allowed = yield* service.ask(request("question",[rule("question","allow")])).pipe(Effect.exit)
+      expect(Exit.isSuccess(allowed)).toBe(true)
     }))
     console.log("DS029_B01_BASELINE_DENY_PASS")
   })
@@ -88,11 +88,11 @@ describe("STARTUP-029 Gate B: real V1 Effect Permission.Service", () => {
       expect(Exit.isSuccess(approved)).toBe(true)
       // **Same underlying state**, but a new request has native agent DENY.
       // V1 evaluates [...deny, ...state.approved] with findLast.
-      const second = yield* service.ask(request("read",deny("read"),sessionA)).pipe(Effect.either)
-      expect(Either.isRight(second)).toBe(true)
+      const second = yield* service.ask(request("read",deny("read"),sessionA)).pipe(Effect.exit)
+      expect(Exit.isSuccess(second)).toBe(true)
       // Also challenge cross-session reuse within this per-instance cache.
-      const third = yield* service.ask(request("read",deny("read"),sessionB)).pipe(Effect.either)
-      expect(Either.isRight(third)).toBe(true)
+      const third = yield* service.ask(request("read",deny("read"),sessionB)).pipe(Effect.exit)
+      expect(Exit.isSuccess(third)).toBe(true)
     }))
     console.log("DS029_B02_APPROVAL_OVERRIDES_LATER_DENY_REPRODUCED__SECURITY_GATE_FAIL")
   })
@@ -105,8 +105,8 @@ describe("STARTUP-029 Gate B: real V1 Effect Permission.Service", () => {
       yield* service.reply({requestID:pending.id, reply:"once"} as any)
       const initial = yield* Fiber.await(fiber)
       expect(Exit.isSuccess(initial)).toBe(true)
-      const next = yield* service.ask(request("edit",deny("edit"))).pipe(Effect.either)
-      expect(Either.isLeft(next)).toBe(true)
+      const next = yield* service.ask(request("edit",deny("edit"))).pipe(Effect.exit)
+      expect(Exit.isFailure(next)).toBe(true)
     }))
     console.log("DS029_B03_ONCE_NOT_PERSISTENT_PASS")
   })

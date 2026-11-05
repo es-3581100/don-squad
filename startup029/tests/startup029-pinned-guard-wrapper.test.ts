@@ -62,7 +62,7 @@ test("pinned STARTUP-020 hook blocks synthetic tool in real SessionTools wrapper
       Effect.provideService(Plugin.Service,plugin as any),
       Effect.provideService(Permission.Service,service as any),
       Effect.provideService(ToolRegistry.Service,registry as any),
-      Effect.provideService(MCP.Service,{clients:()=>Effect.succeed({})} as any),
+      Effect.provideService(MCP.Service,{clients:()=>Effect.succeed({}),tools:()=>Effect.succeed({})} as any),
       Effect.provideService(Truncate.Service,{output:()=>Effect.succeed({content:"",truncated:false})} as any),
       Effect.provideService(RuntimeFlags.Service,{} as any),
     )

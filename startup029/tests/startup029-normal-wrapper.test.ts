@@ -39,7 +39,7 @@ test("normal session wrapper invokes tool.execute.before before a no-ask tool bo
     }]),
   }
   const fakePermission = { ask: () => Effect.die("Synthetic no-ask tool unexpectedly called Permission.ask") }
-  const fakeMcp = { clients: () => Effect.succeed({}) }
+  const fakeMcp = { clients: () => Effect.succeed({}), tools: () => Effect.succeed({}) }
   const fakeTruncate = { output: () => Effect.succeed({content:"",truncated:false}) }
   const input:any = {
     agent: {name:"don-squad",permission:[{ permission:"*",pattern:"*",action:"deny" }]},
