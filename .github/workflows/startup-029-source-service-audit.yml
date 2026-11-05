@@ -1,0 +1,70 @@
+name: STARTUP-029 pinned V1.18.35 source service audit
+# Audit branch only. Do not merge into a production release workflow.
+on:
+  push:
+    branches:
+      - audit/startup-029-source-service
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-source-service-and-normal-wrapper:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout audit harness (the repo that contains this workflow)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: audit
+      - name: Checkout exact upstream OpenCode source commit
+        uses: actions/checkout@v4
+        with:
+          repository: anomalyco/opencode
+          ref: 53d1eabb61e21162157817bf677da0a4ad3332e3
+          persist-credentials: false
+          path: upstream
+      - name: Set up pinned Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.3.14'
+      - name: Verify source identity and stage tests into disposable CI checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C upstream rev-parse HEAD)" = "53d1eabb61e21162157817bf677da0a4ad3332e3"
+          mkdir -p upstream/packages/opencode/test/donsquad-startup029
+          cp audit/startup029/tests/*.test.ts upstream/packages/opencode/test/donsquad-startup029/
+          test "$(sha256sum audit/startup029/fixtures/don-squad-v1-guard.js | awk '{print $1}')" = "f57863c063253b0708d4215d752a54250dc9aecdcdbe2ad60dbc398b6ef624c5"
+      - name: Install exact upstream dependencies in ephemeral runner
+        working-directory: upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+      - name: Run actual source service and production wrapper tests
+        working-directory: upstream/packages/opencode
+        shell: bash
+        env:
+          DS029_GUARD_FILE: ${{ github.workspace }}/audit/startup029/fixtures/don-squad-v1-guard.js
+          DS029_GUARD_SHA256: f57863c063253b0708d4215d752a54250dc9aecdcdbe2ad60dbc398b6ef624c5
+          OPENCODE_DISABLE_DEFAULT_PLUGINS: 'true'
+          OPENCODE_AUTO_UPDATE: 'false'
+        run: |
+          set -euo pipefail
+          bun test --timeout 30000 test/donsquad-startup029/*.test.ts 2>&1 | tee "$RUNNER_TEMP/startup029.log"
+      - name: Classify observed in-memory approval override as security gate failure
+        shell: bash
+        if: success()
+        run: |
+          set -euo pipefail
+          grep -q 'DS029_B01_BASELINE_DENY_PASS' "$RUNNER_TEMP/startup029.log"
+          grep -q 'DS029_B02_APPROVAL_OVERRIDES_LATER_DENY_REPRODUCED__SECURITY_GATE_FAIL' "$RUNNER_TEMP/startup029.log"
+          grep -q 'DS029_B03_ONCE_NOT_PERSISTENT_PASS' "$RUNNER_TEMP/startup029.log"
+          grep -q 'DS029_C01_PRODUCTION_SESSION_TOOLS_HOOK_DENIAL_CONFIRMED__NO_MODEL' "$RUNNER_TEMP/startup029.log"
+          grep -q 'DS029_C02_PINNED_GUARD_IN_PRODUCTION_WRAPPER_DENIED__NO_MODEL' "$RUNNER_TEMP/startup029.log"
+          echo '## STARTUP-029: BLOCKED' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The actual V1 Effect permission service admitted a later-denied permission after a prior `always` approval. This is a security-gate FAIL even if the regression tests returned 0.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The normal-session tool-wrapper tests did NOT exercise model-driven chat or automatic plugin discovery.' >> "$GITHUB_STEP_SUMMARY"
+          echo '::error::STARTUP_029_CONFIRMED_IN_MEMORY_APPROVAL_OVERRIDE__DO_NOT_PROMOTE'
+          exit 7
